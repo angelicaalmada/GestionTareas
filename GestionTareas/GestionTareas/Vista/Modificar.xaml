@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GestionTareas.Vista.Modificar">
+    <Grid RowDefinitions="80,*"
+          BackgroundColor="White">
+        <StackLayout Orientation="Horizontal" Margin="15">
+            <Image Source="https://i.ibb.co/6Ywqbx1/boton-de-retroceso.png" WidthRequest="40">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Volvercommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="Modificar Tareas" TextColor="Black" FontSize="30" HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
+        
+        <StackLayout Grid.Row="1" Margin="10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Nombre Tarea:"
+            TextColor="Black"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            FontSize="18"/>
+                <Entry Placeholder="Ingrese nuevo nombre"
+            TextColor="Black"
+             PlaceholderColor="Black"
+             TextTransform="Lowercase"
+             HorizontalOptions="StartAndExpand"
+                       Text="{Binding Nombre}">
+                </Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Descripcion:"
+            TextColor="Black"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            FontSize="18"/>
+                <Entry Placeholder="Ingrese nueva descripcion"
+            TextColor="Black"
+             PlaceholderColor="Black"
+             TextTransform="Lowercase"
+             HorizontalOptions="StartAndExpand"
+                       Text="{Binding Descripcion}">
+                </Entry>
+            </StackLayout>
+
+
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Estatus"
+            TextColor="Black"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            FontSize="18"/>
+                <Picker x:Name="TextStatus"
+Title="Seleccione estatus"
+TitleColor="Red" SelectedItem="{Binding Estatus}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>pendiente</x:String>
+                            <x:String>proceso</x:String>
+                            <x:String>realizada</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                     Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                        Value     ="realizada">
+                        <Setter Property="BackgroundColor"  Value="green" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                     Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                        Value     ="proceso">
+                        <Setter Property="BackgroundColor"  Value="Yellow" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                     Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                        Value     ="pendiente">
+                        <Setter Property="BackgroundColor"  Value="red" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+            </StackLayout>
+            <Grid RowDefinitions="100,80"
+                  Margin="0,80,0,0">
+
+                <Frame HorizontalOptions="CenterAndExpand"
+                       Padding="5,0"
+                       Margin="0,-100,0,0"
+                       CornerRadius="15"
+                       HasShadow="False"
+                       Grid.Column="0"
+                       Grid.Row="15">
+
+                    <Image Source="https://i.ibb.co/M7SVXdk/boton-editar.png"
+                           WidthRequest="80">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ModificarTareascommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+                <Frame HorizontalOptions="CenterAndExpand"
+                       Padding="2,0"
+                       Margin="0,-100,0,0"
+                       CornerRadius="15"
+                       HasShadow="False"
+                       Grid.Column="1"
+                       Grid.Row="15">
+                    <Image Source="https://i.ibb.co/2yRpp8y/basura.png"
+                           WidthRequest="90">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EliminarTareascommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                </Frame>
+
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

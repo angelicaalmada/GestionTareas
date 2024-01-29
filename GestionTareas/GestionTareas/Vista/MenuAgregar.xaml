@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GestionTareas.Vista.MenuAgregar">
+    <Grid RowDefinitions="80,*"
+      BackgroundColor="White">
+
+        <StackLayout Orientation="Horizontal" Margin="15">
+            <Image Source="https://i.ibb.co/6Ywqbx1/boton-de-retroceso.png" WidthRequest="40" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Volvercommand}"/>
+                </Image.GestureRecognizers>
+
+            </Image>
+
+                <Label Text="Agregar Tareas" TextColor="Black" FontSize="30" HorizontalOptions="CenterAndExpand"/>
+
+        </StackLayout>
+        <StackLayout Grid.Row="1" Margin="10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Nombre Tarea:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        FontSize="18"/>
+                <Entry Placeholder="Ingrese el nombre de la tarea"
+                        TextColor="Black"
+                         PlaceholderColor="Black"
+                         TextTransform="Lowercase"
+                         HorizontalOptions="StartAndExpand"
+                       Text="{Binding TxtNombre}">
+                    
+                </Entry>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Descripcion:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        FontSize="18"/>
+                <Entry Placeholder="Ingrese la descripcion"
+                        TextColor="Black"
+                         PlaceholderColor="Black"
+                         TextTransform="Lowercase"
+                         HorizontalOptions="StartAndExpand"
+                       HeightRequest="100"
+                       Text="{Binding Txtdescripcion}">
+                </Entry>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                    <Label Text="Estatus"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        FontSize="18"/>
+                <Picker x:Name="TextStatus"
+                Title="Seleccione estatus"
+                TitleColor="Red" SelectedItem="{Binding Txtestatus}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>pendiente</x:String>
+                            <x:String>proceso</x:String>
+                            <x:String>realizada</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                    Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                       Value     ="realizada">
+                        <Setter Property="BackgroundColor"  Value="green" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                    Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                       Value     ="proceso">
+                        <Setter Property="BackgroundColor"  Value="Yellow" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                    Binding   ="{Binding Source={x:Reference TextStatus}, Path=SelectedItem}" 
+                       Value     ="pendiente">
+                        <Setter Property="BackgroundColor"  Value="red" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+            </StackLayout>
+
+            <Button Text="Agregar" Command="{Binding Insertarcommand}"/>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>
